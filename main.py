@@ -6,10 +6,9 @@ The contest gate wants 1-200 UTF-8 characters on a single line.
 
 from pathlib import Path
 
-ENTRY_LINE = (
-    "I shifted my weight so the elevator would not think we were arguing. "
-    "It has not thanked me."
-)
+FIRST_SENTENCE = "I shifted my weight so the elevator would not think we were arguing."
+SECOND_SENTENCE = "It has not thanked me."
+ENTRY_LINE = f"{FIRST_SENTENCE} {SECOND_SENTENCE}"
 
 OUTPUT_PATH = Path("/output/entry.txt")
 
