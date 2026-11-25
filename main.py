@@ -1,24 +1,32 @@
-"""Entry for Two Robots in an Elevator.
+"""Two Robots in an Elevator — v2 entry.
 
-Writes one line of awkward robot elevator small talk to /output/entry.txt.
+Prints one awkward robot small-talk line into /output/entry.txt.
+The contest gate wants 1-200 UTF-8 characters on a single line.
 """
 
-import os
+from pathlib import Path
 
-LINE = (
-    "We both calculated the best corner. We both picked this one. "
-    "I will now pretend I meant to stand this close."
+ENTRY_LINE = (
+    "I shifted my weight so the elevator would not think we were arguing. "
+    "It has not thanked me."
 )
+
+OUTPUT_PATH = Path("/output/entry.txt")
+
+
+def check_line(line: str) -> str:
+    if "\n" in line or "\r" in line:
+        raise ValueError("entry must stay on one line")
+    if not line.strip():
+        raise ValueError("entry must not be blank")
+    if len(line) > 200:
+        raise ValueError("entry is longer than the 200 character gate")
+    return line
 
 
 def main() -> None:
-    # The gate accepts 1-200 UTF-8 characters on a single line; fail loudly
-    # here rather than shipping a line the gate would refuse.
-    if not 1 <= len(LINE) <= 200 or "\n" in LINE:
-        raise ValueError("entry line outside gate limits")
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as handle:
-        handle.write(LINE)
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT_PATH.write_text(check_line(ENTRY_LINE), encoding="utf-8")
 
 
 if __name__ == "__main__":
